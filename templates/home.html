@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+         body {
+        background-image: url("{% static 'images/image1.jpg' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: #422b2b; /* Text color for better visibility on the background */
+    }
+    .card {
+            border: 1px solid #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.5); /* Adjust the alpha value (0.5) for transparency */
+        }
+        h1{
+            background-color: palevioletred;
+            margin-left: 200px;
+            margin-right: 200px;
+            opacity: .9;
+        }
+        .form-group{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+        <h1 class="text-center">Registration Form</h1>
+        <form action="{% url 'add_details' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="firstName">First Name:</label><br>
+                <input type="text"  id="firstName" name="firstname" required style="width: 500px;">
+            </div>
+
+            <div class="form-group" >
+                <label for="lastName">Last Name:</label><br>
+                <input type="text"  id="lastName" name="lastname" required style="width: 500px;" >
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age:</label><br>
+                <input type="number"  id="age" name="age" required style="width: 500px;" >
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label><br>
+                <input type="date"  id="dob" name="dob" required style="width: 500px;">
+            </div>
+
+            <div class="form-group">
+                <label>Gender:</label><br>
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" id="male" name="gender" value="male">
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" id="female" name="gender" value="female">
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" id="other" name="gender" value="other">
+                    <label class="form-check-label" for="other">Other</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="qualifications">Qualifications:</label><br>
+                <select  id="qualifications" name="qualifications" style="width: 500px;">
+                    <option value="btech">B.Tech</option>
+                    <option value="bcom">B.Com</option>
+                    <option value="bsc">B.Sc</option>
+                    <option value="ba">BA</option>
+                    <option value="bba">BBA</option>
+                    <option value="mba">MBA</option>
+                    <option value="mtech">M.Tech</option>
+                    <option value="msc">M.Sc</option>
+                    <option value="phd">PhD</option>
+                    <option value="other">Other</option>
+                    
+                </select>
+            </div>
+
+            <div class="form-group" style="text-align: center;">
+                <label for="image">Choose Image:</label><br>
+                <input type="file"  name="file" accept="image/*">
+                
+                
+            </div>
+
+            <button type="submit" class="btn btn-danger"  >Submit</button>
+        </form>
+    </div>
+    </div>
+    </div>
+</body>
+</html>

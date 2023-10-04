@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Registration</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-image: url("{% static 'images/image5.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+             /* Text color for better visibility on the background */
+        }
+    
+        .container {
+            margin-top: 50px;
+        }
+    
+        .card {
+            border: 1px solid #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.5); /* Adjust the alpha value (0.5) for transparency */
+        }
+    
+        .card-header {
+            background-color: #f7a9be;
+            color: #fff;
+            
+        }
+    
+        .card-body {
+            padding: 20px;
+            
+        }
+    
+        .form-group {
+            margin-bottom: 20px;
+            margin-left: 300px;
+            margin-right: 400px;
+        }
+    
+        .product-image {
+            max-width: 200px;
+            max-height: 200px;
+            margin-top: 10px;
+        }
+    </style>
+    
+   
+
+       
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 style="text-align: center;">Edit Registration</h1>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data" action="{% url 'edit_product_details' register.id %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label><br>
+                        <input type="text"  id="firstName" name="firstname"  style="width: 500px;"
+                            value="{{ register.firstname }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label><br>
+                        <input type="text"  id="lastName" name="lastname" style="width: 500px;"
+                            value="{{ register.lastname }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="age">Age:</label><br>
+                        <input type="number"  id="age" name="age" value="{{ register.age }}"
+                            required style="width: 500px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" class="form-control" id="dob" name="dob" value="{{ register.dob|date:'Y-m-d' }}" required>
+                    </div>
+                   
+
+                    <div class="form-group">
+                        <label>Gender:</label><br>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="male" name="gender" value="male"
+                                {% if register.gender == "male" %}checked{% endif %} required>
+                            <label for="male" class="form-check-label">Male</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="female" name="gender" value="female"
+                                {% if register.gender == "female" %}checked{% endif %} required>
+                            <label for="female" class="form-check-label">Female</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="other" name="gender" value="other"
+                                {% if register.gender == "other" %}checked{% endif %} required>
+                            <label for="other" class="form-check-label">Other</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qualifications">Qualifications:</label><br>
+                        <select id="qualifications" class="form-control" name="qualifications" required style="width: 500px; ">
+                            
+                            <option value="btech" {% if register.qualifications == "btech" %}selected{% endif %}>
+                                B.Tech
+                            </option>
+                            <option value="bcom">B.Com</option>
+                            <option value="bsc">B.Sc</option>
+                            <option value="ba">BA</option>
+                            <option value="bba">BBA</option>
+                            <option value="mba">MBA</option>
+                            <option value="mtech">M.Tech</option>
+                            <option value="msc">M.Sc</option>
+                            <option value="phd">PhD</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <h6>Profile Image:</h6>
+                        {% if register.image %}
+                            <img src="{{ register.image.url }}" alt="{{ register.firstname }}"
+                               class="product-image">
+                               
+                            
+                        {% else %}
+                        <img src="{% static 'images/icon.jpg' %}" style="width: 100px;"></imd>
+                            
+                        {% endif %}
+                        <input type="file" class="form-control-file" id="file" name="file">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
